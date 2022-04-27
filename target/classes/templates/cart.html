@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Oaad Project</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="css/templatemo-style.css" rel="stylesheet" />
+	</head>
+
+
+<body> 
+
+	<div class="container">
+		<div class="placeholder">
+			<div class="parallax-window" data-parallax="scroll" data-image-src="img/simple-house-01.jpg">
+				<div class="tm-header">
+					<div class="row tm-header-inner">
+						<div class="col-md-6 col-12">
+							<img src="img/simple-house-logo.png" alt="Logo" class="tm-site-logo" /> 
+							<div class="tm-site-text-box">
+								<h1 class="tm-site-title">OOAD Project</h1>
+								<h6 class="tm-site-description">A Spring Application</h6>	
+							</div>
+						</div>
+						<nav class="col-md-6 col-12 tm-nav">
+							<ul class="tm-nav-ul">
+								<li class="tm-nav-li"><a href="/home" class="tm-nav-link ">Home</a></li>
+								<li class="tm-nav-li"><a href="/cart" class="tm-nav-link active">Cart</a></li>
+							</ul>
+						</nav>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<header class="row tm-welcome-section">
+				<h2 class="col-12 text-center tm-section-title">Welcome to Our OOAD Project</h2>
+				<p class="col-12 text-center">A Total of 6 HTML pages are used. The Backend chosen is Spring. We Have Followed the MVC Pattern and have used mySql for the database </p>
+			</header>
+
+			<div class="tm-paging-links">
+				<nav>
+					<ul>
+						<li class="tm-paging-item"><a class="tm-paging-link active">Cart Items</a></li>
+					</ul>
+				</nav>
+			</div>
+
+			
+			<article  style="margin-left: 225px;" th:each="item : ${user}">
+						<figure>
+							<div >
+							<img style="border-radius: 50%;" th:src="${item[2]}" alt="${item[2]}" class="img-fluid tm-gallery-img" />
+							<div style="display: inline-block;position: relative;bottom:125px;left: 150px;">
+							<h2   style="font-size:30px;" class="tm-gallery-title" th:text="${item[0]}"></h2>
+							<p    style="font-size:20px;"class="tm-gallery-price" th:text="${item[1]}"></p>
+							</div>
+						  </div>
+						</figure>
+			</article>
+
+			<div class="tm-paging-links">
+				<nav>
+					<ul>
+						<li class="tm-paging-item"><a href="/address" class="tm-paging-link active">Check Out</a></li>
+					</ul>
+				</nav>
+			</div>
+
+		</main>
+
+		<footer class="tm-footer text-center">
+			<p class="mt-5 mb-3 text-muted" style="color:rgb(24, 187, 209);">&copy;OOAD Mini Project</p>
+		</footer>
+
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script th:inline="javascript">
+		var items = [[${user}]];
+		console.log(items);
+
+		$(document).ready(function(){
+		});
+	</script>
+</body>
+</html>

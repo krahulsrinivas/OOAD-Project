@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Simple House Template</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="css/templatemo-style.css" rel="stylesheet" />
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<style>
+      @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
+
+body {
+    font-family: 'Calibri', sans-serif !important
+}
+
+.mt-100 {
+    margin-top: 50px
+}
+
+.mb-100 {
+    margin-bottom: 50px
+}
+
+.card {
+    border-radius: 1px !important
+}
+
+.card-header {
+    background-color: #fff
+}
+
+.card-header:first-child {
+    border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0
+}
+
+.btn-sm,
+.btn-group-sm>.btn {
+    padding: .25rem .5rem;
+    font-size: .765625rem;
+    line-height: 1.5;
+    border-radius: .2rem
+}
+    </style>
+</head>
+<!--
+
+Simple House
+
+https://templatemo.com/tm-539-simple-house
+
+-->
+<body> 
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container-fluid mt-100 mb-100">
+    <div id="ui-view">
+        <div>
+            <div class="card">
+                <div class="card-header"> Invoice<strong>#BBB-245432</strong>
+                    <div class="pull-right"> <a class="btn btn-sm btn-info" href="#" data-abc="true"><i class="fa fa-print mr-1"></i> Print</a> <a class="btn btn-sm btn-info" href="#" data-abc="true"><i class="fa fa-file-text-o mr-1"></i> Save</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-sm-4">
+                            <h6 class="mb-3">From:</h6>
+                            <div><strong>OOAD Project.</strong></div>
+                            <div>PES University</div>
+                            <div>NYC, NY 12394</div>
+                            <div>Email: krahulsrinivas@gmail.com</div>
+                            <div>Phone: 8431311480</div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h6 class="mb-3">To:</h6>
+                            <div><strong>App User</strong></div>
+                            <div th:text="'Street: ' +${address[0]}"></div>
+                            <div th:text="'City: ' +${address[1]}"></div>
+                            <div th:text="'State: ' +${address[2]}"></div>
+                            <div th:text="'Zip: ' +${address[3]}"></div>
+                        </div>
+                        <div class="col-sm-4">
+                            <h6 class="mb-3">Details:</h6>
+                            <div>Invoice<strong> #BBB-245432</strong></div>
+                            <div><strong th:text="'Ph no: ' +${address[4]}"></strong></div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm" style="margin-top:30px;" >
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="center">#</th>
+                                    <th>Item</th>
+                                    <th class="center">UNIT</th>
+                                    <th class="right">COST</th>
+                                    <th class="right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id ="final-bill">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row" style="margin-top:45px;">
+                        <div class="col-lg-4 col-sm-5 ml-auto">
+                            <table class="table table-clear">
+                                <tbody>
+                                    <tr>
+                                        <td class="left"><strong>Subtotal</strong></td>
+                                        <td class="right" id="subtotal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left"><strong>Discount (20%)</strong></td>
+                                        <td class="right" id="discount"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left"><strong>VAT (10%)</strong></td>
+                                        <td class="right" id="vat"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left"><strong>Total</strong></td>
+                                        <td class="right" ><strong id="total"></strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pull-right"> 
+                            	<form action="#" th:action="@{/order}" method="post">
+                            	<button class="btn btn-sm btn-success" href="#" data-abc="true" style="font-size: 15px;" type="submit">Order Items</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/parallax.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script th:inline="javascript">
+		var address = [[${address}]];
+		console.log(address);
+		var items = [[${items}]];
+		var final={};
+		for (const x of items) {
+		if (final.hasOwnProperty(x[0])){ 
+			final[x[0]][0]=final[x[0]][0]+1
+		}else{
+			final[x[0]]=[1,parseInt(x[1])]
+		}
+		}
+		$(document).ready(function(){
+			var count=1
+			for(let key in final){
+				var node= document.createElement('tr');
+				node.innerHTML = `<td class="center">${count}</td>
+                                    <td class="left">${key}</td>
+                                    <td class="center">${final[key][0]}</td>
+                                    <td class="right">${final[key][1]}</td>
+                                    <td class="right">${final[key][0]*final[key][1]}</td>`
+          
+    			document.getElementById("final-bill").appendChild(node);
+    			count=count+1
+    		}
+
+    		var total=0
+
+    		for(let key in final){
+				total=total+final[key][0]*final[key][1]
+    		}
+    		var subtotal=total
+    		var discount= total*0.2
+    		var vat= total*0.1
+    		var total=(total-total*0.2) + (total-total*0.2)*0.1
+			document.getElementById("subtotal").appendChild(document.createTextNode(subtotal));
+			document.getElementById("discount").appendChild(document.createTextNode(discount));
+			document.getElementById("vat").appendChild(document.createTextNode(vat));
+			document.getElementById("total").appendChild(document.createTextNode(total));
+
+
+		});
+	</script>
+</body>
+</html>
